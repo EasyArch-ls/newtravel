@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <script src="../static/http_code.jquery.com_jquery-3.1.1.js"></script>
+    <title>Title</title>
+    <script type="text/javascript" >
+        function login() {
+            var name=document.getElementById("name").value
+            var password=document.getElementById("password").value;
+            if (password===""){
+                alert("密码不能为空!")
+            }
+            var j={};
+            j.name=name;
+            j.password=password;
+            alert(JSON.stringify(j))
+            var o=JSON.stringify(j)
+        $.ajax({
+            url: "http://127.0.0.1:8080/login",
+            type: "POST",
+            contentType: 'application/json;charset=utf-8',
+            data: o,
+            success: function (data) {
+                 alert(data)
+                // window.location.href="http://127.0.0.1:8080/"+data;
+               // window.location.href="http://localhost:8080/"+data;
+            }
+        });
+        }
+        function travel(){
+            alert("-------")
+            $.ajax({
+                url: "http:127.0.0.1/8080/travel",
+                type: "GET",
+                contentType:'application/json;charset=utf-8',
+                data:null,
+                success: function (data) {
+                    alert(data)
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+  <div></div>
+  name:<input type="text" id="name"><br>
+  pass:<input type="password" id="password"><br>
+  <button onclick="login()">travel</button>
+
+</body>
+</html>

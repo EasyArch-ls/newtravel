@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US" class=" desktop portrait">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link href="../static/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/lightbox.css" rel="stylesheet" type="text/css">
+    <script src="../static/js/http_code.jquery.com_jquery-3.1.1.js"></script>
+    <script src="../static/js/my.js"></script>
+
+    <style>
+        .timer-section span {
+            display: block;
+            letter-spacing: 0.15em;
+            padding-left: 5px;
+            font-size: 50px;
+            width: 77px;
+            height: 57px;
+            line-height: 57px;
+            float: left;
+        }
+
+        .timer-section em {
+            font-style: normal;
+            border-radius: 5px;
+            display: block;
+            width: 8px;
+            text-align: center;
+            height: 57px;
+            line-height: 57px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div class="headout">
+    <div class="headtop">
+       <!-- <img src=""  width="86" height="72">
+        <img src=""  width="135" height="69">-->
+    </div>
+    <div id="userinfo" style="position: absolute;left: 1300px; height: 80px;top: 10px; width: 200px"></div>
+
+</div>
+<div class="ddconMain" id="yudingBoxDiv">
+    <div class="ddConWidth">
+        <div class="ddConBox ddConBox01 clearfix">
+            <div class="pic">
+                <a href="" target="_blank">
+                    <img id="img" src="" alt="" width="216 " height="162">
+                </a>
+            </div>
+            <div class="wri">
+                <h3><a id="title" href="" target="_blank"></a></h3>
+                <div class="bcArea clearfix">
+                    <p id="id"><em>线路编号：</em></p>
+                    <p id="persions"><em>人 数：</em>
+
+                    </p>
+                </div>
+                <div class="bcArea clearfix">
+                    <p><em>出 发 地：</em><span id="origin"></span></p>
+                    <p id="stime"><em>出发日期：</em></p>
+                </div>
+                <div class="jgArea" id="priceName">
+                    产品单价：<span id="simprice"><i>¥</i></span>
+                </div>
+                <a onclick="tijiao()" style="position:relative;left:300px;top: 450px;float: right;padding: 0 84px;margin-top: -2px; line-height: 38px;   color: #fff; background: #ff5b12;cursor: pointer" type="submit">提交订单</a>
+            </div>
+        </div>
+            <div class="ddConBox ddConBox02" style="">
+                <div class="ddConTit">联系人信息<span>带有＊号为必填项</span></div>
+                <div class="ddConList02" style="display:block; font-size:12px;" id="changeMenberInfo">
+                    <div class="ddlist clearfix">
+                        <span class="ddftit">手 机 :</span>
+                        <input type="text"  id="phonenumber" class="txt01" value="">
+                        <div id="bcAreaTig" class="bcArea">＊ 请正确填写手机号码，以便我们与您联系</div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="ddlist clearfix">
+                        <span class="ddftit">姓 名 :</span>
+                        <input type="text"  id="name" class="txt01" value=""
+                               maxlength="50">
+                        <div class="bcArea02">
+                            <em>＊ </em>
+                            <input type="radio" checked="" name="sex" id="man" value="先生">
+                            <label for="man">先生</label>
+                            <input type="radio" name="sex" id="women" value="女士">
+                            <label for="women">女士</label>
+                        </div>
+                        <div class="tsArea" style="display:none" id="nameMsg">请输入您的姓名</div>
+                    </div>
+                    <div class="ddlist clearfix">
+                        <span class="ddftit">邮 箱 :</span>
+                        <input class="txt01" type="text" id="email">
+                        <div class="bcArea02" style="display:none"><em>＊ </em></div>
+                        <div class="bcArea03">用于向您发送订单确认信等服务信息，注册后，邮箱不能修改，请正确填写！</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ddConBox ddConBox05">
+                <div class="ddConTit">订单备注</div>
+                <textarea placeholder="其他需求" name="contactNotes" id="contactNotes" cols="" rows=""
+                          style="resize: none;"></textarea>
+            </div>
+    </div>
+    <div class="ddConBox ddConBox01 clearfix">
+        <div class="ddSideBar yudingmoren" id="list" style="right: 352.5px; position: fixed; top: 118px;">
+            <div class="ddSB_01">结算清单</div>
+            <div class="ddSB_02">
+                <p id="adult">
+                </p>
+                <p id="chr" style="display: none;">
+                </p>
+            </div>
+            <div class="ddSB_03">应付总价：<i>¥</i><span id="allprice"></span></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var id;var persions;
+
+    function tijiao(){
+        var phonenumber=document.getElementById("phonenumber").value;
+        var name=document.getElementById("name").value;
+        var email=document.getElementById("email").value;
+        var value = $('input:radio[name="sex"]:checked').val();
+        var json={};
+        json.phonenumber=phonenumber;
+        json.name=name;
+        json.email=email;
+        json.value=value;
+        json.id=id;
+        json.persions=persions;
+        json.price=  document.getElementById("allprice").innerHTML;
+        var j=JSON.stringify(json);
+        $.ajax({
+            url: houtaiurl + '/addorder',
+            type: "POST",
+            contentType: 'application/json;charset=utf-8',
+            data:  j,
+            success: function (ReceivedData) {
+
+            }
+        })
+    }
+    window.onload=function () {
+        var str = sessionStorage.obj;
+        if(str!==undefined){
+            document.getElementById("userinfo").innerHTML="<p>欢迎你 :"+str+"</p>";
+        }
+        var infos=sessionStorage.detail.split("&");
+        for (var i = 0; i < infos.length; i++) {
+            var info=infos[i].split("=");
+            switch (info[0]) {
+                case "id":
+                    document.getElementById("id").innerHTML+=info[1];
+                    id=info[1];
+                    document.getElementById("title").href='http://localhost:8080/detail?id='+info[1];
+                    break;
+                case "title":document.getElementById("title").innerHTML=decodeURI(info[1]);break;
+                case "origin":document.getElementById("origin").innerHTML=decodeURI(info[1]);break;
+                case "stime":  document.getElementById("stime").innerHTML+=info[1];break;
+                case "img": document.getElementById("img").src=info[1];break;
+            }
+        }
+        console.log(sessionStorage.dingdanperson)
+        var dingdaninfo=JSON.parse(sessionStorage.dingdanperson);
+        var atpers=dingdaninfo.atpers.split("-");
+        var ctpers=dingdaninfo.ctpers.split("-");
+        var persionsinfo=atpers[1]+"成人";
+        if (ctpers[1]!=='0'){
+            persionsinfo+=","+ctpers[1]+"儿童"
+            document.getElementById("chr").innerHTML=ctpers[1]+"×儿童 ¥"+ctpers[0]+"元";
+            document.getElementById("chr").style.display='block';
+        }
+        document.getElementById("persions").innerHTML+=persionsinfo;
+        persions=persionsinfo;
+        document.getElementById("simprice").innerHTML+=atpers[0];
+        document.getElementById("adult").innerHTML=atpers[1]+"×成人 ¥"+atpers[0]+"元";
+        document.getElementById("allprice").innerHTML=dingdaninfo.all;
+    }
+</script>
+</html>

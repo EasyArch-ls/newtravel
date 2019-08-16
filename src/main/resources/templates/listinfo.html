@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.springframework.org/schema/mvc">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link href="../static/css/headFooter.css" rel="stylesheet"
+          type="text/css">
+    <link href="../static/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../static/css/share_style0_32.css">
+    <script src="../static/js/my.js"></script>
+    <style type="text/css">
+    .easemobim-mobile-body > * {
+        display: none !important
+    }
+
+    @-webkit-keyframes easemobim-loading-frame {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0)
+        }
+        to {
+            -webkit-transform: rotate(1turn);
+            transform: rotate(1turn)
+        }
+    }
+
+    @-moz-keyframes easemobim-loading-frame {
+        0% {
+            -moz-transform: rotate(0);
+            transform: rotate(0)
+        }
+        to {
+            -moz-transform: rotate(1turn);
+            transform: rotate(1turn)
+        }
+    }
+
+    @keyframes easemobim-loading-frame {
+        0% {
+            -webkit-transform: rotate(0);
+            -moz-transform: rotate(0);
+            transform: rotate(0)
+        }
+        to {
+            -webkit-transform: rotate(1turn);
+            -moz-transform: rotate(1turn);
+            transform: rotate(1turn)
+        }
+    }
+
+    .easemobim-pc-img-view > img {
+        max-width: 100%;
+        max-height: 100%;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0
+    }
+    #img-pop-bottom * {
+        font: 12px simsun
+    }
+    </style>
+
+</head>
+
+<body style="background:#fff" >
+<div id="headerDiv" style="background-color: #fff;">
+    <div class="row m-t-0" style="z-index: 104;">
+        <div class="cav_1200 logo_style" style="height:129px">
+            <p title="国旅">
+                <!--logo--> <img src="" class="logo_1">
+            </p>
+            <p id="centerEHomeLogin">
+                <img src="" class="logo_2"
+                     id="centerEHomeLoginPIC">
+            </p>
+            <div class="cityDiv">
+                <div class="city">
+                    <span class="name" id="city"><p id="c">北京</p></span>
+                    <span class="btn"><a onclick="qiehuan()">[切 换]</a></span>
+                    <div id="qiehuan" class="atcity" style="display: none">
+                        <ul>
+                            <li>
+                                <strong>北京</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=北京" title="北京">北京</a>
+                            </li>
+                            <li>
+                                <strong>陕西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=西安" title="西安">西安</a>
+                            </li>
+                            <li>
+                                <strong>天津</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=天津" title="天津">天津</a>
+                            </li>
+                            <li>
+                                <strong>辽宁</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=沈阳" title="沈阳">沈阳</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=大连" title="大连">大连</a>
+                            </li>
+                            <li>
+                                <strong>山西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=太原" title="太原">太原</a>
+                            </li>
+                            <li>
+                                <strong>吉林</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=长春" title="长春">长春</a>
+                                <a  target="_self"
+                                    href="http://localhost:8080/travelon?city=吉林" title="吉林">吉林</a>
+                            </li>
+                            <li>
+                                <strong>河北</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=石家庄" title="石家庄">石家庄</a>
+                            </li>
+                            <li>
+                                <strong>河南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=郑州" title="郑州">郑州</a>
+                            </li>
+                            <li>
+                                <strong>宁夏</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=银川" title="银川">银川</a>
+                            </li>
+                            <li>
+                                <strong>山东</strong>
+                                <a href="http://localhost:8080/travelon?city=济南" title="济南">济南</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=青岛" title="青岛">青岛</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=威海" title="威海">威海</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=烟台" title="烟台">烟台</a>
+                            </li>
+                            <li>
+                                <strong>新疆</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=乌鲁木齐" title="乌鲁木齐">乌鲁木齐</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <strong>上海</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=上海" title="上海">上海</a>
+                            </li>
+                            <li>
+                                <strong>安徽</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=合肥" title="合肥">合肥</a>
+                            </li>
+                            <li>
+                                <strong>江苏</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南京" title="南京">南京</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=无锡" title="无锡">无锡</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南通" title="南通">南通</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=常州" title="常州">常州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=镇江" title="镇江">镇江</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=扬州" title="扬州">扬州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=盐城" title="盐城">盐城</a>
+                            </li>
+                            <li>
+                                <strong>江西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南昌" title="南昌">南昌</a>
+                            </li>
+                            <li>
+                                <strong>浙江</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=杭州" title="杭州">杭州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=宁波" title="宁波">宁波</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=湖州" title="湖州">湖州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=绍兴" title="绍兴">绍兴</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=嘉兴" title="嘉兴">嘉兴</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <strong>广东</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=广州" title="广州">广州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=深圳" title="深圳">深圳</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=中山" title="中山">中山</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=江门" title="江门">江门</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=佛山" title="佛山">佛山</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=潮州" title="潮州">潮州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=云浮" title="云浮">云浮</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=肇庆" title="肇庆">肇庆</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=东莞" title="东莞">东莞</a>
+                            </li>
+                            <li>
+                                <strong>福建</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=厦门" title="厦门">厦门</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=福州" title="福州">福州</a>
+                            </li>
+                            <li>
+                                <strong>湖北</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=武汉" title="武汉">武汉</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=宜昌" title="宜昌">宜昌</a>
+                            </li>
+                            <li>
+                                <strong>湖南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=长沙" title="长沙">长沙</a>
+                            </li>
+                            <li>
+                                <strong>重庆</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=重庆" title="重庆">重庆</a>
+                            </li>
+                            <li>
+                                <strong>贵州</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=贵阳" title="贵阳">贵阳</a>
+                            </li>
+                            <li>
+                                <strong>云南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=昆明" title="昆明">昆明</a>
+                            </li>
+                            <li>
+                                <strong>四川</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=成都" title="成都">成都</a>
+                            </li>
+                            <li>
+                                <strong>海南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=海口" title="海口">海口</a>
+                            </li>
+                            <li>
+                                <strong>广西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南宁" title="南宁">南宁</a>
+                            </li>
+                            <li>
+                                <strong>澳门</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=澳门" title="澳门">澳门</a>
+                            </li>
+                        </ul>
+                        <div class="btmtxt">温馨提示：根据您的选择，我们将为您切换到您所在的地区首页。
+                            <button style="width: 50px;height: 30px " onclick="quxiao()">取消</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="group_input">
+                <div class="divselects">
+
+                </div>
+                <div class="divhotsearch">
+                    <div class="wai">
+                        <input placeholder="请输入目的地、关键词或线路编号"
+                               onclick=""
+                               id="indexsearch" class="inp ac_input">
+                        <button class="btn" onclick="" style="cursor: pointer">搜索</button>
+                    </div>
+                </div>
+            </div>
+        <div style="position: absolute;left: 1000px; height: 80px;top: 10px;">
+        <button style="cursor:pointer;width: 150px;height:40px;background: #87ff6f;color: #fff;outline:none;font-size: 14px;border: 1px;"
+                        onclick=" window.open('http://localhost:8080/login')">登录/注册
+         </button>
+        </div>
+          <div id="userinfo" style="position: absolute;left: 1300px; height: 80px;top: 10px; width: 200px"></div>
+
+        </div>
+    </div>
+</div>
+<div class="bodybox mart10">
+    <div style="clear: both"></div>
+    <div class="mudibox mart20">
+        <div class="mudilft01 floatlft" id="search_result_list" style="background: #fff;">
+            <div class="mudi_top mudi_top01 clearfix" style="padding-top:0px;">
+                <div class="picsout01 nobor-top01">
+                    <ul class="picslst01 picslst03" id="list"></ul>
+                </div>
+            </div>
+            <div class="mudi_top clearfix ">
+                <div class="pagebox01" style="padding-top: 0px;">
+                    <div class="pageins01">
+                        <a href="" id="lastpage">上一页</a>
+                        <span  id="Page">1</span>
+                        <input type="text" id="toPage" placeholder="">页 <input type="button" value="跳转" onclick="to()">
+                        <a href="" class="nextpage" id="nextpage">下一页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript" >
+    var json = [[${json}]];
+   // var json='[]';
+    var  urls=window.location.search.substring(1).split("&");
+    var url='';
+    for (var i = 0; i < urls.length; i++) {
+        if (urls[i].split('=')[0]!=='id'){
+            url+=urls[i]+'&';
+        }else {
+            document.getElementById("Page").innerHTML=urls[i].split('=')[1];
+            break;
+        }
+    }
+
+    window.onload=function () {
+        document.getElementById("c").innerHTML=sessionStorage.city;
+        var all=JSON.parse(json);
+        var str = sessionStorage.obj;
+        if(str!==undefined){
+            document.getElementById("userinfo").innerHTML="<p>欢迎你 :"+str+"</p>";
+        }
+        var listinfo='';
+        var list=document.getElementById("list");
+        if (all.length!==0){
+        for (var i = 0; i < all.length; i++) {
+            listinfo+='<li><div class="overhid01"><span class="floatlft">';//
+            listinfo+='<a target="_blank"  onclick="detail(this.id)" id="id='+all[i].id+'&title='+all[i].title+'&origin='+all[i].origin+'&atprice='+all[i].atprice+'&ctprice='+all[i].ctprice+'&stime='+all[i].stime+'&img='+all[i].url+'"  href="javascript:void(0)" > <img src="'+ all[i].url+'"  class="lazy" width="210" height="158" style="display: inline;"></a></span><div class="rightbox01"><div class="floatlft01"> <h3 class="mudidih3">';
+            listinfo+='<a target="_blank"  onclick="detail(this.id)"  id="id='+all[i].id+'&title='+all[i].title+'&origin='+all[i].origin+'&atprice='+all[i].atprice+'&ctprice='+all[i].ctprice+'&stime='+all[i].stime+'&img='+all[i].url+'" href="javascript:void(0)" >' + all[i].title + '</a></h3><div class="subtitnew"><i>'+all[i].origin+'出发</i></div><div class="chufa">'+all[i].path+'</div> <div class="icolist cleardiv">出发日期'+all[i].stime+'</div></div>';
+            var price;
+            if (all[i].atprice.indexOf("-")!==-1){
+                price=all[i].atprice.split("-")[1];
+            } else {
+                price=all[i].atprice;
+            }
+            listinfo+='<div class="floatrgt_ew"><div class="moneybox moneybox01" >¥<strong>'+price+'</strong>起</div><div class="btnxonas"><a target="_blank"  onclick="detail(this.id)"  id="id='+all[i].id+'&title='+all[i].title+'&origin='+all[i].origin+'&atprice='+all[i].atprice+'&ctprice='+all[i].ctprice+'&stime='+all[i].stime+'&img='+all[i].url+'" href="javascript:void(0)" class="detailbox">查看详情</a></div></div></div> </div></li>';
+        }
+        list.innerHTML=listinfo;
+        } else {
+            list.innerHTML='<center><h1 style="color: #ff1513">暂无数据</h1></center>';
+        }
+        var  curpage=document.getElementById("Page").innerHTML;
+        var lastpage; var nextpage;
+        if (curpage==='1'){
+            lastpage=1;
+            nextpage=2;
+        } else {
+            lastpage=curpage-1;
+            nextpage=parseInt(curpage)+1;
+        }
+        document.getElementById("lastpage").href=decodeURI(window.location.href.split("?")[0]+'?'+url)+'id='+lastpage;
+        document.getElementById("nextpage").href=decodeURI(window.location.href.split("?")[0]+'?'+url)+'id='+nextpage;
+
+    }
+    function to() {
+        var  curpage=document.getElementById("toPage").value;
+        if (curpage<1){
+            alert("页码不能为负数")
+        } else {
+            window.location.href=decodeURI(window.location.href.split("?")[0]+'?'+url)+'id='+curpage;
+        }
+    }
+</script>
+</html>

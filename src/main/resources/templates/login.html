@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/oaam_uio.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/e_oaam_style.css">
+    <script type="text/javascript" charset="UTF-8" language="javascript" src="../static/js/oaam_uio.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.js"></script>
+    <script type="text/javascript" src="../static/js/sso.js"></script>
+    <script type="text/javascript" src="../static/js/oaam_check.js"></script>
+    <script type="text/javascript" src="../static/js/my.js"></script>
+</head>
+<body class="f17 f17v2" style="background: url('../static/img/loginbackground.jpg')">
+<div class="f17w1">
+    <div class="cb41 cb41v0">
+        <script language="javascript" type="text/javascript">
+            function setFocusLoginPage() {
+                var elemUsername = document.getElementById("account");
+                var userid = elemUsername.value;
+                userid = trimstring(userid);
+                var elemPassword = document.getElementById("password");
+                if(userid != null && userid != "")
+                {
+                    setTimeout(function(){
+                        elemUsername.focus();
+                        elemPassword.focus();
+                    }, 100);
+                }
+                else
+                {
+                    setTimeout(function(){
+                        elemUsername.focus();
+                    }, 100);
+                }
+            }
+            window.onload = function () {
+                setFocusLoginPage();
+            }
+        </script>
+        <div class="cb41w1">
+            <h2>旅游网登录</h2>
+            <div id="signOnCreds">
+                    <ul class="credsList">
+                        <li>
+                            <div class="cb41w2">
+                                <label for="account" class="">账号</label>
+                                <input type="text" id="account"
+                                       class="textInput" title="输入账号">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="cb41w3">
+                                <label for="password">密码</label>
+                                <input type="password" id="password" class="textInput" title="输入密码" >
+                                <span class="cb41w5">
+							      <span class="cb41w6">
+								    <span role="tooltip" class="cb41noteshoverbtn" tabindex="7" title="忘记密码？"><span
+                                            class="cb41notescontent" style="opacity: 0; display: none;"><span
+                                            class="cb41arrow"></span><a
+                                            href="https://profile.oracle.com/myprofile/account/forgot-password.jspx"
+                                            tabindex="8" target="_blank">忘记密码？</a></span><span
+                                            class="cb41btnhvr"></span></span>
+							      </span>
+						        </span>
+                            </div>
+                        </li>
+                    </ul>
+
+                        <div class="cb41w4">
+                            <span><input type="submit" onclick="login()" id="login" class="signin_button" tabindex="3" value="登录"></span>
+                        </div>
+
+            </div>
+        </div>
+
+        <script>
+            function reg() {
+                var status=document.getElementById("reinfo").style.display;
+                if (status ==='none'){
+                    document.getElementById("reinfo").style.display='block';
+                } else {
+                    document.getElementById("reinfo").style.display='none';
+                }
+
+            }
+        </script>
+        <div class="cb41w1">
+            <h6>没有旅游网账号？</h6>
+            <div class="cb41w4">
+			<span>
+				<a class="cb41create-btn" onclick="reg()">创建账号</a>
+			</span>
+            </div>
+        </div>
+        <div class="cb41w1" id="reinfo" style="display: none">
+            <h6>输入注册信息</h6>
+            <div class="cb41w4">
+                <ul class="credsList">
+                    <li>
+                        <div class="cb41w2">
+                            <label for="reaccount" class="">账号</label>
+                            <input type="text" id="reaccount" title="输入账号">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="cb41w3">
+                            <label for="repassword" class="">密码</label>
+                            <input type="text" id="repassword" title="输入账号">
+                        </div>
+                    </li>
+                </ul>
+                <div class="cb41w4">
+                    <span><input  type="submit" onclick="register()"  class="signin_button" value="注册"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

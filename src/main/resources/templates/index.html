@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>中国国旅</title>
+    <link href="https://file.cits.cn/online/images/cits_logo.ico" rel="icon" type="image/x-icon">
+    <link href="../static/css/headFooter.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/lightbox.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../static/css/share_style0_32.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/slide.css">
+    <script src="../static/js/http_code.jquery.com_jquery-3.1.1.js"></script>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/slide.js"></script>
+    <script src="../static/js/my.js"></script>
+</head>
+<script>
+    //搜索框请求
+    function search(){
+        var content=document.getElementById("indexsearch").value;
+        window.location.href= houtaiurl + '/listinfo/search?content='+content+'&city='+c;
+    }
+    window.onload = function () {
+        var s={};
+        s.city=c;
+        var send=JSON.stringify(s);
+        $.ajax({
+            url: houtaiurl + '/index',
+            type: "POST",
+            contentType: 'application/json;charset=utf-8',
+            data: send,
+            success: function (ReceivedData) {
+                console.log(ReceivedData)
+                var shuju = ReceivedData.split("~");
+                var all = JSON.parse(shuju[0]);
+                var tuijian = JSON.parse(shuju[1]);
+
+                var tehui_s = '';
+                var chujing_s = '';
+                var guonei_s = '';
+                var dangdi_s = '';
+                if (all[0].length!==0){
+                    tehui_s += '<a href="javascript:void(0)" id="a0" class="Fnavon" onclick=tehui("tehui0","a0")>' + all[0][0][0].country + '</a>';
+                    for (var i = 1; i < all[0].length; i++) {
+                        tehui_s += '<a href="javascript:void(0)"  id="a' + i + '" onclick=tehui("tehui' + i + '","a' + i + '")  >' + all[0][i][0].country + '</a>';
+                    }
+                    document.getElementById("tehuititle").innerHTML = tehui_s;
+                }
+                if (all[1].length!==0){
+                    chujing_s += '<a class="Ynavon" id="chujinga0" href="javascript:void(0)"  onclick=chujing("chujing0","chujinga0")>' + all[1][0][0].country + '</a>';
+                    for (var i = 1; i < all[1].length; i++) {
+                        chujing_s += '<a id="chujinga' + i + '"  href="javascript:void(0)" onclick=chujing("chujing' + i + '","chujinga' + i + '") >' + all[1][i][0].country + '</a>';
+                    }
+                    document.getElementById("chujingtitle").innerHTML = chujing_s;
+                }
+                if (all[2].length!==0){
+                    guonei_s += '<a class="Bnavon" id="guoneia0" href="javascript:void(0)" onclick=guonei("guonei0","guoneia0")>' + all[2][0][0].country + '</a>';
+                    for (var i = 1; i < all[2].length; i++) {
+                        guonei_s += '<a  id="guoneia' + i + '" href= "javascript:void(0)" onclick=guonei("guonei' + i + '","guoneia' + i + '")>' + all[2][i][0].country + '</a>';
+                    }
+                    document.getElementById("guoneititle").innerHTML = guonei_s;
+                }
+                if (all[3].length!==0){
+                    dangdi_s += ' <a  id="dangdia0" class="Rnavon" href="javascript:void(0)"  onclick=dangdi("dangdi0","dangdia0")>' + all[3][0][0].country + '</a>';
+                    for (var i = 1; i < all[3].length; i++) {
+                        dangdi_s += '<a id="dangdia' + i + '" href="javascript:void(0)"  onclick=dangdi("dangdi' + i + '","dangdia' + i + '")>' + all[3][i][0].country + '</a>';
+                    }
+                    document.getElementById("dangdititle").innerHTML = dangdi_s;
+
+                }
+
+                var tehui_simple = '';
+                var chujing_simple = '';
+                var guonei_simple = '';
+                var dangdi_simple = '';
+                if (tehui_s !== '') {
+                    for (var i = 0; i < all[0].length; i++) {
+                        if (i === 0) {
+                            tehui_simple += '<div class="SalistR" id="tehui0" style="display:block;"><ul>';
+                        } else {
+                            tehui_simple += '<div class="SalistR" id="tehui' + i + '"  style="display:none;"><ul>';
+                        }
+                        for (var j = 0; j < all[0][i].length; j++) {
+                            tehui_simple += '<a  onclick="detail(this.id)" id="id='+all[0][i][j].id+'&title='+all[0][i][j].title+'&origin='+all[0][i][j].origin+'&atprice='+all[0][i][j].atprice+'&ctprice='+all[0][i][j].ctprice+'&stime='+all[0][i][j].stime+'&img='+all[0][i][j].url+'"  href="javascript:void(0)" ><li style="margin-right: 8px"><div class="TJimgdiv"><img src="' + all[0][i][j].url + '" class="lazy" width="270" height="152" style="display: inline;"><div class="clkdiv"><div><s>立减</s></div></div><div class="datediv"><span>' + all[0][i][j].stime + '</span></div></div><div class="Texth1">' + all[0][i][j].title + '</div><div class="priceD"><span class="pricNO">¥' + all[0][i][j].atprice.split("-")[1] + '</span><i>起</i><s>¥' + all[0][i][j].atprice.split("-")[0] + '</s><span class="btnQG" style="margin-top: -4px;">立即抢购<img src="../static/img/jt_RSC.png"></span></div></li></a>';
+                        }
+                        tehui_simple += '</ul></div>';
+                    }
+                    document.getElementById("tehuiall").innerHTML = tehui_simple;
+                } else {
+                    document.getElementById("tehui").style.display = 'none';
+                }
+                if (chujing_s !== '') {
+                    for (var i = 0; i < all[1].length; i++) {
+                        if (i === 0) {
+                            chujing_simple += '<div class="Rtrvlist"  id="chujing0" style="display: block;"><div class="imgSt"><a  title="纯美日本" ><img alt="纯美日本" src="../static/img/20180904172010_814.jpg" class="lazy"  width="460" height="224" style="display: inline;"></a></div>';
+                        } else {
+                            chujing_simple += '<div class="Rtrvlist"  id="chujing' + i + '" style="display: none;">';
+                        }
+                        for (var j = 0; j < all[1][i].length; j++) {
+                            if (all[1][i][j].atprice.indexOf("-") !== -1) {
+                                chujing_simple += '<a target="_blank"  onclick="detail(this.id)" id="id='+all[1][i][j].id+'&title='+all[1][i][j].title+'&origin='+all[1][i][j].origin+'&atprice='+all[1][i][j].atprice+'&ctprice='+all[1][i][j].ctprice+'&stime='+all[1][i][j].stime+'&img='+all[1][i][j].url+'"  href="javascript:void(0)" title=' + all[1][i][j].title + '><div class="ProSt ProStY"><p><img width="217" height="122" class="lazy" src="' + all[1][i][j].url + '" style="display: inline;"></p><div class="clkdiv"><div><s>立减</s></div></div><h2>' + all[1][i][j].title + '</h2><span><i>￥' + all[1][i][j].atprice.split("-")[1] + '</i><s class="lefts">起</s><s class="rights">￥' + all[1][i][j].atprice.split("-")[0] + '</s></span></div></a>';
+                            } else {
+                                chujing_simple += '<a target="_blank"  onclick="detail(this.id)" id="id='+all[1][i][j].id+'&title='+all[1][i][j].title+'&origin='+all[1][i][j].origin+'&atprice='+all[1][i][j].atprice+'&ctprice='+all[1][i][j].ctprice+'&stime='+all[1][i][j].stime+'&img='+all[1][i][j].url+'"  href="javascript:void(0)" title=' + all[1][i][j].title + '><div class="ProSt ProStY"><p><img width="217" height="122" class="lazy" src="' + all[1][i][j].url + '" style="display: inline;"></p><h2>' + all[1][i][j].title + '</h2><span><i>￥' + all[1][i][j].atprice + '</i><s class="lefts">起</s></span></div></a>';
+                            }
+                        }
+                        chujing_simple += '</div>';
+                    }
+                    document.getElementById("chujingall").innerHTML = chujing_simple;
+                    var cjgt = '';
+                    for (var i = 0; i < tuijian[0].length; i++) {
+                        //list?country=搜索内容&city=北京&type=a&groupp=a
+                        cjgt += '<a target="_blank" href="' + houtaiurl + '/listinfo/list?country=' + tuijian[0][i] + '&city='+c+'&type=a&groupp=a">' + tuijian[0][i] + '</a>'
+                    }
+                    document.getElementById("cjgt").innerHTML += cjgt;
+                    var cjzy = '';
+                    for (var i = 0; i < tuijian[1].length; i++) {
+                        cjzy += '<a target="_blank" href="' + houtaiurl + '/listinfo/list?country=' + tuijian[1][i] + '&city='+c+'&type=a&groupp=b">' + tuijian[1][i] + '</a>'
+
+                    }
+                    document.getElementById("cjzy").innerHTML += cjzy;
+                } else {
+                    document.getElementById("chujing").style.display = 'none';
+
+                }
+                if (guonei_s !== '') {
+                    for (var i = 0; i < all[2].length; i++) {
+                        if (i === 0) {
+                            guonei_simple += '<div class="Rtrvlist" id="guonei0" style="display: block; "><div class="imgSt"><a   title="青普文化行馆"><img  class="lazy" width="460" height="224" src="../static/img/20180904171440_76.jpg" style="display: inline;"></a></div>';
+                        } else {
+                            guonei_simple += '<div class="Rtrvlist" id="guonei' + i + '" style="display: none;">';
+                        }
+                        for (var j = 0; j < all[2][i].length; j++) {
+                            if (all[2][i][j].atprice.indexOf("-") !== -1) {
+                                guonei_simple += '<a target="_blank"    onclick="detail(this.id)" id="id='+all[2][i][j].id+'&title='+all[2][i][j].title+'&origin='+all[2][i][j].origin+'&atprice='+all[2][i][j].atprice+'&ctprice='+all[2][i][j].ctprice+'&stime='+all[2][i][j].stime+'&img='+all[2][i][j].url+'"  href="javascript:void(0)" title=' + all[2][i][j].title + '><div class="ProSt ProStB"><p><img width="217" height="122" class="lazy" src="' + all[2][i][j].url + '" style="display: inline;"></p><div class="clkdiv"><div><s>立减</s></div></div><h2>' + all[2][i][j].title + '</h2><span><i>￥' + all[2][i][j].atprice.split("-")[1] + '</i><s class="lefts">起</s><s class="rights">￥' + all[2][i][j].atprice.split("-")[0] + '</s></span></div></a>';
+                            } else {
+                                guonei_simple += '<a target="_blank"    onclick="detail(this.id)" id="id='+all[2][i][j].id+'&title='+all[2][i][j].title+'&origin='+all[2][i][j].origin+'&atprice='+all[2][i][j].atprice+'&ctprice='+all[2][i][j].ctprice+'&stime='+all[2][i][j].stime+'&img='+all[2][i][j].url+'"  href="javascript:void(0)" title=' + all[2][i][j].title + '><div class="ProSt ProStB"><p><img width="217" height="122" class="lazy" src="' + all[2][i][j].url + '" style="display: inline;"></p><h2>' + all[2][i][j].title + '</h2><span><i>￥' + all[2][i][j].atprice + '</i><s class="lefts">起</s></span></div></a>';
+                            }
+                        }
+                        guonei_simple += '</div>';
+                    }
+                    document.getElementById("guoneiall").innerHTML = guonei_simple;
+
+                    var gngt = '';
+                    for (var i = 0; i < tuijian[2].length; i++) {
+                        gngt += '<a target="_blank" href="' + houtaiurl + '/listinfo/list?country=' + tuijian[2][i] + '&city='+c+'&type=b&groupp=a">' + tuijian[2][i] + '</a>'
+                    }
+                    document.getElementById("gngt").innerHTML += gngt;
+                    var gnzy = '';
+                    for (var i = 0; i < tuijian[3].length; i++) {
+                        gnzy += '<a target="_blank" href="' + houtaiurl + '/listinfo/list?country=' + tuijian[3][i] + '&city='+c+'&type=b&groupp=b">' + tuijian[3][i] + '</a>'
+                    }
+                    document.getElementById("gnzy").innerHTML += gnzy;
+                } else {
+                    document.getElementById("guonei").style.display = 'none';
+                }
+                if (dangdi_s !== '') {
+                    for (var i = 0; i < all[3].length; i++) {
+                        if (i === 0) {
+                            dangdi_simple += '<div class="Rtrvlist" id="dangdi0" style="display: block; ">';
+                        } else {
+                            dangdi_simple += '<div class="Rtrvlist" id="dangdi' + i + '" style="display: none;">';
+                        }
+                        for (var j = 0; j < all[3][i].length; j++) {
+                            if (all[3][i][j].atprice.indexOf("-") !== -1) {
+                                dangdi_simple += '<a target="_blank"    onclick="detail(this.id)" id="id='+all[3][i][j].id+'&title='+all[3][i][j].title+'&origin='+all[3][i][j].origin+'&atprice='+all[3][i][j].atprice+'&ctprice='+all[3][i][j].ctprice+'&stime='+all[3][i][j].stime+'&img='+all[3][i][j].url+'"  href="javascript:void(0)"  title=' + all[3][i][j].title + '><div class="ProSt ProStR"><div style="position:relative"><img width="217" height="122" class="lazy" src="' + all[3][i][j].url + '" style="display: inline;"><div class="datediv01"><em class="ddspan">出发城市：' + all[3][i][j].origin + '</em></div></div><div class="clkdiv"><div><s>立减</s></div></div><h2>' + all[3][i][j].title + '</h2><span><i>￥' + all[3][i][j].atprice.split("-")[1] + '</i><s class="lefts">起</s> <s class="rights" >￥' + all[3][i][j].atprice.split("-")[0] + '</s></span></div></a>'
+                            } else {
+                                dangdi_simple += '<a target="_blank"   onclick="detail(this.id)" id="id='+all[3][i][j].id+'&title='+all[3][i][j].title+'&origin='+all[3][i][j].origin+'&atprice='+all[3][i][j].atprice+'&ctprice='+all[3][i][j].ctprice+'&stime='+all[3][i][j].stime+'&img='+all[3][i][j].url+'"  href="javascript:void(0)"  title=' + all[3][i][j].title + '><div class="ProSt ProStR"><div style="position:relative"><img width="217" height="122" class="lazy" src="' + all[3][i][j].url + '" style="display: inline;"><div class="datediv01"><em class="ddspan">出发城市：' + all[3][i][j].origin + '</em></div></div><h2>' + all[3][i][j].title + '</h2><span><i>￥' + all[3][i][j].atprice + '</i><s class="lefts">起</s></span></div></a>'
+                            }
+                        }
+                        dangdi_simple += '</div>';
+                    }
+                    document.getElementById("dangdiall").innerHTML = dangdi_simple;
+                } else {
+                    document.getElementById("dangdi").style.display = 'none';
+                }
+                var city=document.getElementById("c").innerHTML;
+                //3个查看更多
+                document.getElementById("chujingsearch").href=houtaiurl+'/listinfo/search?content='+document.getElementById(chucur1).innerHTML+'&city='+city;
+                document.getElementById("guoneisearch").href=houtaiurl+'/listinfo/search?content='+document.getElementById(guoneicur1).innerHTML+'&city='+city;
+                document.getElementById("dangdisearch").href=houtaiurl+'/listinfo/search?content='+document.getElementById(dangdicur1).innerHTML+'&city='+city;
+              /*  if(window.location.search.substring(1).split("=")[0]==='userid'){
+                    document.getElementById("userinfo").innerHTML="<p>欢迎你 "+window.location.search.substring(1).split("=")[1]+"</p>";
+                }*/
+                var str = sessionStorage.obj;
+                if(str!==undefined){
+                    document.getElementById("userinfo").innerHTML="<p>欢迎你 :"+str+"</p>";
+                }
+                sessionStorage.city=c;
+            }
+        });
+    };
+
+</script>
+<body id="main" style="position: relative;">
+<div id="headerDiv" style="background-color: #fff;">
+    <div class="row m-t-0" style="z-index: 104;">
+        <div class="cav_1200 logo_style" style="height:129px">
+            <p title="国旅">
+                <!--logo--> <img src="" class="logo_1">
+            </p>
+            <p id="centerEHomeLogin">
+                <img src="" class="logo_2"
+                     id="centerEHomeLoginPIC">
+            </p>
+
+            <script th:inline="javascript">
+                var c = [[${city}]];
+            </script>
+            <div class="cityDiv">
+                <div class="city">
+                    <span class="name" id="city"><p th:text="${city}" id="c">北京</p></span> <span class="btn"><a
+                        onclick="qiehuan()">[切 换]</a></span>
+                    <div id="qiehuan" class="atcity" style="display: none">
+                        <ul>
+                            <li>
+                                <strong>北京</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=北京" title="北京">北京</a>
+                            </li>
+                            <li>
+                                <strong>陕西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=西安" title="西安">西安</a>
+                            </li>
+                            <li>
+                                <strong>天津</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=天津" title="天津">天津</a>
+                            </li>
+                            <li>
+                                <strong>辽宁</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=沈阳" title="沈阳">沈阳</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=大连" title="大连">大连</a>
+                            </li>
+                            <li>
+                                <strong>山西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=太原" title="太原">太原</a>
+                            </li>
+                            <li>
+                                <strong>吉林</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=长春" title="长春">长春</a>
+                                <a  target="_self"
+                                   href="http://localhost:8080/travelon?city=吉林" title="吉林">吉林</a>
+                            </li>
+                            <li>
+                                <strong>河北</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=石家庄" title="石家庄">石家庄</a>
+                            </li>
+                            <li>
+                                <strong>河南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=郑州" title="郑州">郑州</a>
+                            </li>
+                            <li>
+                                <strong>宁夏</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=银川" title="银川">银川</a>
+                            </li>
+                            <li>
+                                <strong>山东</strong>
+                                <a href="http://localhost:8080/travelon?city=济南" title="济南">济南</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=青岛" title="青岛">青岛</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=威海" title="威海">威海</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=烟台" title="烟台">烟台</a>
+                            </li>
+                            <li>
+                                <strong>新疆</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=乌鲁木齐" title="乌鲁木齐">乌鲁木齐</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <strong>上海</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=上海" title="上海">上海</a>
+                            </li>
+                            <li>
+                                <strong>安徽</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=合肥" title="合肥">合肥</a>
+                            </li>
+                            <li>
+                                <strong>江苏</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南京" title="南京">南京</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=无锡" title="无锡">无锡</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南通" title="南通">南通</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=常州" title="常州">常州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=镇江" title="镇江">镇江</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=扬州" title="扬州">扬州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=盐城" title="盐城">盐城</a>
+                            </li>
+                            <li>
+                                <strong>江西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南昌" title="南昌">南昌</a>
+                            </li>
+                            <li>
+                                <strong>浙江</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=杭州" title="杭州">杭州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=宁波" title="宁波">宁波</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=湖州" title="湖州">湖州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=绍兴" title="绍兴">绍兴</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=嘉兴" title="嘉兴">嘉兴</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <strong>广东</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=广州" title="广州">广州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=深圳" title="深圳">深圳</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=中山" title="中山">中山</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=江门" title="江门">江门</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=佛山" title="佛山">佛山</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=潮州" title="潮州">潮州</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=云浮" title="云浮">云浮</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=肇庆" title="肇庆">肇庆</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=东莞" title="东莞">东莞</a>
+                            </li>
+                            <li>
+                                <strong>福建</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=厦门" title="厦门">厦门</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=福州" title="福州">福州</a>
+                            </li>
+                            <li>
+                                <strong>湖北</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=武汉" title="武汉">武汉</a>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=宜昌" title="宜昌">宜昌</a>
+                            </li>
+                            <li>
+                                <strong>湖南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=长沙" title="长沙">长沙</a>
+                            </li>
+                            <li>
+                                <strong>重庆</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=重庆" title="重庆">重庆</a>
+                            </li>
+                            <li>
+                                <strong>贵州</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=贵阳" title="贵阳">贵阳</a>
+                            </li>
+                            <li>
+                                <strong>云南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=昆明" title="昆明">昆明</a>
+                            </li>
+                            <li>
+                                <strong>四川</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=成都" title="成都">成都</a>
+                            </li>
+                            <li>
+                                <strong>海南</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=海口" title="海口">海口</a>
+                            </li>
+                            <li>
+                                <strong>广西</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=南宁" title="南宁">南宁</a>
+                            </li>
+                            <li>
+                                <strong>澳门</strong>
+                                <a target="_self"
+                                   href="http://localhost:8080/travelon?city=澳门" title="澳门">澳门</a>
+                            </li>
+                        </ul>
+                        <div class="btmtxt">温馨提示：根据您的选择，我们将为您切换到您所在的地区首页。
+                            <button style="width: 50px;height: 30px " onclick="quxiao()">取消</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="group_input">
+                <div class="divselects">
+
+                </div>
+                <div class="divhotsearch">
+                    <div class="wai">
+                        <input placeholder="请输入目的地、关键词或线路编号"
+                               onclick=""
+                               id="indexsearch" class="inp ac_input">
+                        <button class="btn" onclick="search()" style="cursor: pointer">搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div style="position: absolute;left: 1000px; height: 80px;top: 10px;">
+                <button  style="cursor:pointer;width: 150px;height:40px;background: #87ff6f;color: #fff;outline:none;font-size: 14px;border: 1px;" onclick=" window.open('http://localhost:8080/login')">登录/注册</button>
+            </div>
+            <div id="userinfo" style="position: absolute;left: 1300px; height: 80px;top: 10px; width: 200px"></div>
+        </div>
+    </div>
+</div>
+<div id="show" rel="autoPlay">
+    <div class="img">
+          <span>
+              <a href="" target="_blank"><img src="../static/img/1.jpg"/></a>
+              <a href="" target="_blank"><img src="../static/img/2.jpg"/></a>
+              <a href="" target="_blank"><img src="../static/img/3.jpg"/></a>
+              <a href="" target="_blank"><img src="../static/img/4.jpg"/></a>
+              <a href="" target="_blank"><img src="../static/img/5.jpg"/></a>
+          </span>
+        <div class="masks mk1"></div>
+        <div class="masks mk2"></div>
+    </div>
+</div>
+<div class="m-t-20 dingwei dingwei_1" id="tehui" style="position: relative;">
+    <div class="cav_1200 clearfix">
+        <div class="IndTitle IndTitleF">
+            <div class="LTdiv">特惠产品</div>
+            <div class="CTdiv" id="tehuititle"></div>
+        </div>
+        <div>
+            <div class="Salist"
+                 style="background:url('../static/img/tehui.jpg') no-repeat 0 0;">
+                <div class="SalistL">
+                    <ul></ul>
+                </div>
+                <div id="tehuiall"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-t-20 dingwei dingwei_2" id="chujing" style="position: relative;">
+    <div class="cav_1200 clearfix">
+        <div class="IndTitle IndTitleY">
+            <div class="LTdiv">出境游</div>
+            <div class="CTdiv" id="chujingtitle"></div>
+            <div class="RTdiv"><a id="chujingsearch" target="_blank" href="" >查看更多<img
+                    src="../static/img/jt_R.png" height="13"></a></div>
+        </div>
+        <div class="Ltrvlist">
+            <div class="hotlist" id="cjgt">
+                <h2>出境跟团目的地推荐</h2>
+                <a target="_blank" onclick=""
+                   href="">欧洲</a>
+            </div>
+            <div class="hotlist" id="cjzy">
+                <h2>出境自由行目的地推荐</h2>
+                <a target="_blank" onclick=""
+                   href="">塞班</a>
+            </div>
+        </div>
+        <div id="chujingall"></div>
+    </div>
+</div>
+<div class="m-t-20 dingwei dingwei_3" id="guonei" style="position: relative;">
+    <div class="cav_1200 clearfix">
+        <div class="IndTitle IndTitleB">
+            <div class="LTdiv">国内游</div>
+            <div class="CTdiv" id="guoneititle"></div>
+            <div class="RTdiv"><a target="_blank" id="guoneisearch" href="">查看更多<img
+                    src="../static/img/jt_R.png" height="13" style=""></a></div>
+        </div>
+        <div class="Ltrvlist">
+            <div class="hotlist" id="gngt">
+                <h2>国内跟团目的地推荐</h2>
+                <a target="_blank" onclick=""
+                   href="">杭州</a>
+            </div>
+            <div class="hotlist" id="gnzy">
+                <h2>国内自由行目的地推荐</h2>
+                <a target="_blank" onclick=""
+                   href="">海南</a>
+            </div>
+        </div>
+        <div id="guoneiall"></div>
+    </div>
+</div>
+<div class="m-t-20 dingwei dingwei_4" id="dangdi" style="position: relative;">
+    <input type="hidden" id="mddthemeCheck" value="">
+    <div class="cav_1200 clearfix">
+        <div class="IndTitle IndTitleR">
+            <div class="LTdiv">当地跟团游</div>
+
+            <div class="CTdiv" id="dangdititle"></div>
+            <div class="RTdiv"><a target="_blank" id="dangdisearch" href="">查看更多<img
+                    src="../static/img/jt_R.png" height="13" style=""></a></div>
+        </div>
+        <div class="Ltrvlist">
+            <div class="hotlist">
+                <h2>境外目的地推荐</h2>
+                <a target="_blank"
+                   href="">东京</a>
+                <a target="_blank" onclick=""
+                   href="">澳门</a>
+                <a target="_blank" onclick=""
+                   href="">洛杉矶</a>
+                <a target="_blank" onclick=""
+                   href="">夏威夷欧胡岛</a>
+                <a target="_blank" onclick=""
+                   href="">巴黎</a>
+                <a target="_blank" onclick=""
+                   href="">香港</a>
+                <a target="_blank" onclick=""
+                   href="">迈阿密</a>
+                <a target="_blank" onclick=""
+                   href="">纽约</a>
+                <a target="_blank" onclick=""
+                   href="">坎昆</a>
+            </div>
+            <div class="hotlist">
+                <h2>国内目的地推荐</h2>
+                <a target="_blank" onclick=""
+                   href="">北京</a>
+                <a target="_blank" onclick=""
+                   href="">昆明</a>
+                <a target="_blank" onclick=""
+                   href="">南京</a>
+                <a target="_blank" onclick=""
+                   href="">厦门</a>
+                <a target="_blank" onclick=""
+                   href="">上海</a>
+                <a target="_blank" onclick=""
+                   href="l">三亚</a>
+                <a target="_blank" onclick=""
+                   href="">杭州</a>
+                <a target="_blank" onclick=""
+                   href="">无锡</a>
+                <a target="_blank" onclick=""
+                   href="">长沙</a>
+                <a target="_blank" onclick=""
+                   href="">武汉</a>
+                <a target="_blank" onclick=""
+                   href="">太原</a>
+                <a target="_blank" onclick=""
+                   href="">丽江</a>
+                <a target="_blank" onclick=""
+                   href="">黄山</a>
+                <a target="_blank" onclick=""
+                   href="">张家界</a>
+                <a target="_blank" onclick=""
+                   href="">漳州</a>
+                <a target="_blank" onclick=""
+                   href="">福州</a>
+                <a target="_blank" onclick=""
+                   href="">贵阳</a>
+            </div>
+        </div>
+        <div id="dangdiall"></div>
+    </div>
+</div>
+</body>
+</html>

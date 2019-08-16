@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.UserMapper">
+
+    <select id="findfirst" parameterType="java.lang.String" resultType="Scenic">
+        select * from main where origin=#{origin};
+    </select>
+
+    <select id="findmore" parameterType="java.lang.String" resultType="Scenic">
+        select * from scenic <where>
+        country=#{country} and origin=#{origin}
+        <if test="type!=null">
+            and type=#{type}
+        </if>
+        <if test="groupp!=null">
+            and groupp=#{groupp}
+        </if>
+    </where>
+    </select>
+
+    <select id="allscenic" resultType="Scenic">
+        select * from  scenic;
+    </select>
+
+    <select id="findtehui" resultType="Scenic">
+        select * from main where type='a';
+    </select>
+
+    <select id="findcg" parameterType="java.lang.String" resultType="Scenic">
+        select * from main
+        <where>
+            type='b'and groupp='a'
+            <if test="origin!=null">
+                and origin=#{origin}
+            </if>
+            <if test="country!=null">
+                and country=#{country}
+            </if>
+        </where>
+    </select>
+
+    <select id="findczy" resultType="mybatis.bean.Scenic">
+        select * from main where type='b'and groupp='b'
+    </select>
+
+    <select id="findcfd" parameterType="java.lang.String" resultType="java.lang.String">
+        select country from main
+        <where>
+            <if test="origin!=null ">
+                origin=#{origin}
+            </if>
+            <if test="type!=null">
+                and type=#{type}
+            </if>
+            <if test="groupp!=null">
+                and groupp=#{groupp}
+            </if>
+        </where>
+    </select>
+
+    <select id="findcfdx" parameterType="java.lang.String" resultType="java.lang.String">
+        select country from scenic
+        <where>
+            <if test="type!=null">
+                 type=#{type}
+            </if>
+            <if test="groupp!=null">
+                and groupp=#{groupp}
+            </if>
+        </where>
+    </select>
+
+    <select id="findgng" parameterType="java.lang.String" resultType="Scenic">
+        select * from main
+        <where>
+            type='c'and groupp='a'
+            <if test="origin!=null">
+                and origin=#{origin}
+            </if>
+            <if test="country!=null">
+                and country=#{country}
+            </if>
+        </where>
+    </select>
+
+    <select id="findgnz" resultType="Scenic">
+        select * from main where type='c'and groupp='b';
+    </select>
+
+    <select id="finddd" resultType="Scenic">
+        select * from main where type='d';
+    </select>
+
+    <select id="findword" parameterType="java.lang.String" resultType="Scenic">
+        select * from scenic
+        <where>
+            country like concat(concat('%',#{word}),'%') or path like concat(concat('%',#{word}),'%') or title like
+            concat(concat('%',#{word}),'%') or id like concat(concat('%',#{word}),'%')
+            <if test="origin!=null">
+                and origin=#{origin}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="findmaneger" parameterType="java.lang.String" resultType="Managers">
+        select * from managers where name=#{name} and password=#{password};
+    </select>
+
+    <select id="finduser" parameterType="java.lang.String" resultType="User">
+        select * from users where uname=#{uname} and password=#{password};
+    </select>
+
+    <select id="managerview" resultType="Order">
+        select * from orders ;
+    </select>
+
+    <select id="userview" parameterType="java.lang.String" resultType="Order">
+        select * from orders where name=#{name};
+    </select>
+
+    <select id="user"  resultType="Managers">
+        select * from managers;
+    </select>
+
+    <select id="order"  resultType="Order">
+        select * from orders;
+    </select>
+
+    <select id="scenic"  resultType="Scenic">
+        select * from scenic;
+    </select>
+
+
+    <select id="findid"  resultType="java.lang.String">
+        select id from scenic ;
+    </select>
+
+    <insert id="registeruser" parameterType="java.lang.String">
+    insert into users (uname,name,password)
+    values (#{uname},#{name},#{password})
+    </insert>
+
+    <insert id="addorder" parameterType="java.lang.String">
+    insert into orders (name,phone,gender,email,id,numbers,price,other)
+    values (#{name },#{phone},#{gender},#{email},#{id},#{numbers},#{price},#{other})
+    </insert>
+
+    <update id="xgscenic" parameterType="java.lang.String">
+        update scenic set
+        <where>
+            <if test="country!=null">
+                country=#{country}
+            </if>
+            <if test="origin!=null">
+                and origin=#{origin}
+            </if>
+            <if test="path!=null">
+                and path=#{path}
+            </if>
+            <if test="origin!=null">
+                and stime=#{stime}
+            </if>
+            <if test="atprice!=null">
+                and atprice=#{atprice}
+            </if>
+            <if test="ctprice!=null">
+                and ctprice=#{ctprice}
+            </if>
+            <if test="url!=null">
+                and url=#{url}
+            </if>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="type!=null">
+                and type=#{type}
+            </if>
+            <if test="groupp!=null">
+                and groupp=#{groupp}
+            </if>
+            <if test="title!=null">
+                and title=#{title}
+            </if>
+        </where>
+    </update>
+
+    <insert id="addscenic" parameterType="java.lang.String">
+        insert into scenic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="country!=null">
+                country,
+            </if>
+            <if test="origin!=null">
+                 origin,
+            </if>
+            <if test="path!=null">
+                path,
+            </if>
+            <if test="origin!=null">
+               stime,
+            </if>
+            <if test="atprice!=null">
+                atprice,
+            </if>
+            <if test="ctprice!=null">
+                ctprice,
+            </if>
+            <if test="url!=null">
+                url,
+            </if>
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="type!=null">
+                type,
+            </if>
+            <if test="groupp!=null">
+                groupp,
+            </if>
+            <if test="title!=null">
+                title,
+            </if>
+    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="country!=null">
+                #{country},
+            </if>
+            <if test="origin!=null">
+                #{origin},
+            </if>
+            <if test="path!=null">
+               #{path},
+            </if>
+            <if test="origin!=null">
+                #{stime},
+            </if>
+            <if test="atprice!=null">
+                #{atprice},
+            </if>
+            <if test="ctprice!=null">
+                #{ctprice},
+            </if>
+            <if test="url!=null">
+                #{url},
+            </if>
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="type!=null">
+                #{type},
+            </if>
+            <if test="groupp!=null">
+                #{groupp},
+            </if>
+            <if test="title!=null">
+                #{title},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="adduser" parameterType="java.lang.String">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uname!=null">
+                uname,
+            </if>
+            <if test="name!=null">
+                name,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="email!=null">
+                email,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="uname!=null">
+                #{uname},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="email!=null">
+                #{email},
+            </if>
+        </trim>
+    </insert>
+    <delete id="descenic" parameterType="java.lang.String" >
+        DELETE FROM scenic WHERE id=#{id};
+    </delete>
+
+    <!--<delete id="deleteById" parameterType="int">-->
+    <!--delete from T_DEPT where DEPTNO=#{id}-->
+    <!--</delete>-->
+    <!--<update id="updateDept" parameterType="org.entity.Dept">-->
+    <!--update T_DEPT set DNAME=#{dname},LOC=#{loc} where DEPTNO=#{deptno}-->
+    <!--</update>&lt;!&ndash; 返回Map &ndash;&gt;-->
+    <!--<select id="findDepts" resultType="java.util.HashMap">-->
+    <!--select DEPTNO,DNAME from T_DEPT-->
+    <!--</select>-->
+    <!--<select id="findDept" parameterType="int" resultType="java.util.HashMap">-->
+    <!--select DEPTNO,DNAME from T_DEPT where DEPTNO=#{no}-->
+    <!--</select>&lt;!&ndash; ResultMap应用 &ndash;&gt;-->
+    <!--<select id="findAll1" resultMap="deptMap">-->
+    <!--select DEPTNO,DNAME,LOC from T_DEPT-->
+    <!-- &lt;!&ndash;</select>&ndash;&gt;
+     <resultMap id="Scenic" type="mybatis.bean.Scenic">
+         <result property="country" jdbcType="VARCHAR" javaType="string"/>
+         &lt;!&ndash;<result property="name" column="DNAME" jdbcType="VARCHAR" javaType="string"/>
+         <result property="loc" column="LOC" jdbcType="VARCHAR" javaType="string"/>&ndash;&gt;
+     </resultMap>-->
+</mapper>
